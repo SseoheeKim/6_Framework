@@ -1,0 +1,15 @@
+package edu.kh.project.main.controller;
+
+import org.springframework.stereotype.Controller;
+
+// 어노테이션이란 컴파일러에게 알려 현재 클래스가 무엇인지 알려주는 용도
+// 또한 new없이도 Controller 객체 생성(bean) 
+// 현재 MainController가 Controller
+@Controller
+public class MainController {
+
+	public String mainPage() {
+
+		return null;
+	}
+}
