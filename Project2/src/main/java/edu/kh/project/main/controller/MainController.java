@@ -15,10 +15,9 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String mainPage() {
 
-			// 메인 페이지 요청 시 필요한 코드 작성 가능
+		// 메인 페이지 요청 시 필요한 코드 작성 가능
 		
-		
-		// forward 방법
+		// ** forward 방법 **
 		// - View Resolver의 prefix/suffix를 제외한 jsp 경로를 작성
 		return "common/main";
 		

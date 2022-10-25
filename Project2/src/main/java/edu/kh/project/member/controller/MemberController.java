@@ -2,10 +2,17 @@ package edu.kh.project.member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.kh.project.member.model.service.MemberService;
+import edu.kh.project.member.model.service.MemberServiceImpl;
+import edu.kh.project.member.model.vo.Member;
 
 // 회원 관련 요청을 받는 컨트롤러
 // 로그인, 로그아웃, 회원가입, 아이디(이메일) 중복 검사 등
@@ -14,13 +21,22 @@ import org.springframework.web.bind.annotation.RequestParam;
   @Controller 
   : 프레젠테이션 레이어(보여지는 층)
   웹 애플리케이션으로 전달 받은 클라이언트의 요청을 알맞은 서비스로 연결하고(Mapping)
-  서비스에서 반환된 결과에 따라
-  알맞은 화면으로 응답하는 방법을 제어하는 역할 
-  
-  */
-				
+  서비스에서 반환된 결과에 따라 알맞은 화면으로 응답하는 방법을 제어하는 역할  
+*/
+
+
 @Controller
 public class MemberController {
+	
+	// * 공용으로 사용할 Service 객체 생성 *
+	// @Autowired
+	// -> bean scanning을 통해 bean에 등록된 객체 중 알맞은 객체를 DI(의존성 주입)해주는 어노테이션 
+	
+	// 자동 연결 규칙 : 타입이 같거나 상속 관계인 bean을 자동으로 DI
+	@Autowired
+	private MemberService service ;
+	
+	
 
 	// @RequestMapping
 	// : 클라이언트의 요청을 처리할 클래스/메서드를 지정하는 어노테이션==> @RequestMapping
@@ -28,7 +44,6 @@ public class MemberController {
 	
 	// *** 파라미터 전달 받는 방법 ***
 	// 1. HttpServletRequest를 이용하는 방법
-	
 	
 	// 로그인 요청(POST)
 	// @RequestMapping(value="/member/login", method=RequestMethod.POST)
@@ -40,14 +55,13 @@ public class MemberController {
 		System.out.println(inputEmail);
 		System.out.println(inputPw);
 		
-		// * forward 방법 :  prefix/sufiix를 제외한 나머지 jsp경고
+		// * forward 방법 :  prefix/sufix를 제외한 나머지 jsp경로
 		
-		// * redirect 방법 : "redirect:요청주소";
+		// * redirect 방법  : "redirect:요청주소";
 		
 		
 		return "redirect:/";
 	}
-	
 	
 	
 	
@@ -81,7 +95,7 @@ public class MemberController {
 	
 	
 	// RequestParam 생략을 이용해 짧게 코드 작성 가능
-	@RequestMapping(value="/member/login", method=RequestMethod.POST)
+	//@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String login(String inputEmail, String inputPw) {
 		
 		System.out.println(inputEmail);
@@ -89,4 +103,42 @@ public class MemberController {
 		
 		return "redirect:/"; 
 	}
+	
+	
+
+	/*  3. @ModelAttribute (ModelAttribute 어노테이션) 이용
+		[작성방법]
+	  	@ModelAttribute VO타입 매개면수명
+	  	-> 파라미터의 name 속성값이 지정된 VO의 필드명과 같다면 
+	  	해당 VO객체의 필드에 파라미터를 세팅
+	  	
+	  	[조건]
+	  	1. VO 내 반드시 기본 생성자 필요
+	  	2. VO 내 반드시 setter 필요
+	  	3. name 속성값과 필드명이 동일해야함! 
+	 */
+	
+	// @ModelAttribute은 생략이 가능
+	// public String login(Member inputEmail) <- 이렇게도 가능
+	
+	@PostMapping("/member/login") // Post방식의 /member/login요청을 연결
+	public String login(@ModelAttribute Member inputEmail) {
+		/* 이전에 배운 Servlet 프로젝트는 
+	  	Service 객체를 생성하고, try ~ catch 내부에 코드를 작성하는 방식 */
+		
+		// String 프로젝트
+		// 서비스 호출 후 결과 반환 받기
+		Member loginMember = service.login(inputEmail);
+		
+		
+		// 로그인 성공 시 loginMember를 세션에 추가
+		// 로그인 실패시 "아이디 또는 비밀번호가 일치하지 않습니다" 세션에 추가
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	
+	
 }

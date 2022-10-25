@@ -7,8 +7,13 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		
+		<!-- 서버가 start 되자마자 적용할 설정 파일을 작성 -->
 		<!-- spring폴더 java관련 폴더로 이동 후 경로 변경(classpath사용)  -->
-		<param-value>classpath:spring/root-context.xml</param-value>
+		<param-value>
+			classpath:spring/root-context.xml
+			classpath:spring/spring-security.xml
+		</param-value>
+		
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -25,6 +30,7 @@
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<!-- spring폴더 java관련 폴더로 이동 후 경로 변경(classpath사용)  -->
@@ -35,7 +41,8 @@
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern> <!-- 최상위 주소 이하 모든 요청을 받아들여서 처리  -->
+		 <!-- 최상위 주소 이하 모든 요청을 받아들여서 처리  -->
+		 <url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 </web-app>
