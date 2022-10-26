@@ -25,10 +25,11 @@
     2) header는 너므 복잡행
     3) 프로그램이 진행되는 순서에 따라 중간에 알람이 뜨는 경우 다른 오류 발생 가능성 존재
       -> 따라서 마지막에 사용  --%>
-<c:if test="${!empty sessionScope.message}">
+<c:if test="${!empty message}">
     <script> 
-        alert("${sessionScope.message}");
+        alert("${message}");
     </script> 
-    <%-- message 1회 출력 후 session scope에서 삭제 --%>
-    <c:remove var="message" scope="session" />
+    <%-- message 1회 출력 후 c:remove - 전체 scope에서 모두 다 삭제
+        session scope에 있으면 브라우저 종료 전까지 계속 유지 --%>
+    <c:remove var="message" />
 </c:if>

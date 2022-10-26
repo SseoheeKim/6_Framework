@@ -1,9 +1,0 @@
-INDEX VERSION 1.131
-C:\workspace\6_Framework\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\618559722.index
-\Project2\src\main\java
-C:\workspace\6_Framework\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2983654083.index
-\Project2\src\main\java
-C:\workspace\6_Framework\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4261221626.index
-\Project2\src\main\java
-C:\workspace\6_Framework\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1514127916.index
-\Project2\src\main\java

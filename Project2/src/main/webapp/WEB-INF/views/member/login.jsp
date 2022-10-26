@@ -24,12 +24,12 @@
         <form action="/member/login" method="POST">
             <section class="input-box">
                 <!-- required 속성 : form태그 제출 시 해당 input태그에 값이 존재하는 검사 -->
-                <input type="text" name="inputEmail" placeholder="Email" required value="${cookie.saveId.value}">
+                <input type="text" name="memberEmail" placeholder="Email" required value="${cookie.saveId.value}">
             </section>
 
             <section class="input-box">
                 <!-- required 속성 : form태그 제출 시 해당 input태그에 값이 존재하는 검사 -->
-                <input type="password" name="inputPw" placeholder="Password" required>
+                <input type="password" name="memberPw" placeholder="Password" required>
             </section>
 
             <button class="login-btn">Login</button>
@@ -53,12 +53,12 @@
 
     </main>
 
-    <c:if test="${!empty sessionScope.message}">
+    <c:if test="${!empty message}">
         <script> 
-            alert("${sessionScope.message}");
+            alert("${message}");
         </script> 
-        <%-- message 1회 출력 후 session scope에서 삭제 --%>
-        <c:remove var="message" scope="session" />
+        <%-- message 1회 출력 후 삭제 --%>
+        <c:remove var="message" />
     </c:if>
 </body>
 </html>
