@@ -19,9 +19,10 @@ import edu.kh.project.member.model.vo.Member;
 
 public interface MemberService {
 	
-	/**
-	 * @param inputMember
-	 * @return loginMember
-	 */
+	// 로그인 Service 
 	public abstract Member login(Member inputMember);
+	
+	
+	// 회원가입 Service
+	public abstract int signUp(Member inputMember);
 }

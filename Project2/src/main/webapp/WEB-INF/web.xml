@@ -42,7 +42,23 @@
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		 <!-- 최상위 주소 이하 모든 요청을 받아들여서 처리  -->
-		 <url-pattern>/</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- 한글 깨짐 방지를 위한 인코딩 필터 추가 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param> <!-- 초기 파라미터 -->
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

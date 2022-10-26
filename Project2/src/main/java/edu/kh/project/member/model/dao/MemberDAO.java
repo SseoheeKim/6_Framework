@@ -25,4 +25,15 @@ public class MemberDAO {
 		// sqlSession.selectOne("매퍼이름.태그id", sql작성에 필요한 값);
 		return sqlSession.selectOne("memberMapper.login", memberEmail);
 	}
+
+
+
+	/** 회원가입 DAO
+	 * @param inputMember
+	 * @return result
+	 */
+	public int signUp(Member inputMember) {
+		return sqlSession.insert("memberMapper.signUp", inputMember);
+		// return 0; // 테스트용 강제 실패
+	}
 }

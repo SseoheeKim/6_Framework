@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="memberMapper"> 	<!-- namespace 속성 : 현재 공간(영역)에 대한 이름으로 반드시 지정! -->
-  <!-- <cache-ref namespace=""/>   -> 사용안하므로 반드시 삭제 -->
+  <!-- <cache-ref namespace=""/>   사용안하므로 반드시 삭제 -->
   
   <!-- resultMap 태그 
   		- 마이바티스에서 select하는 경우
@@ -77,6 +77,20 @@
 					TO_CHAR( ENROLL_DATE, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"' ) AS ENROLL_DATE 
 		FROM MEMBER
 		WHERE MEMBER_DEL_FL = 'N' 
-		AND MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_EMAIL = #{memberEmail} 
   </select>
+  
+  
+  <!-- insert, update, delete는 
+  	항상 반영된 행의 개수(int)가 반환되기 때문에 
+  	별도의 resultMap을 지정할 필요가 없다. 
+  -->
+  
+  <!-- 회원가입  -->							<!-- 별칭 지정 edu.kh.project.member.model.vo.Member (mybatis-config.xml)-->
+  <insert id="signUp" parameterType="Member" >
+  	INSERT INTO "MEMBER" 
+  	VALUES(SEQ_MEMBER_NO.NEXTVAL, #{memberEmail}, #{memberPw}, #{memberNickname}, #{memberTel}, #{memberAddress},
+  				 DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+  </insert>
+  
 </mapper>
