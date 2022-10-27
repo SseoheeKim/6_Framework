@@ -8,5 +8,4 @@
 	<!-- XML 방식으로 bcrypt 암호화 bean생성(암호화 진행 객체 생성) -->
 	<bean id="bcryptPasswordEncoder" 
 				class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-
-</beans>
+	</beans>
