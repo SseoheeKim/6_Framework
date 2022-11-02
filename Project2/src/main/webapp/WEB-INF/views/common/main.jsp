@@ -16,21 +16,19 @@
 <script src="https://kit.fontawesome.com/f7459b8054.js" crossorigin="anonymous"></script>
 
 <body>
-       
+
     <main>
         <%-- 
             jsp action tag : include 
             - 해당 위치에 page 속성으로 지정된 jsp파일의 내용이 포함
             - jsp 파일의 경로는 /webapp 폴더 기준으로 작성
         --%>
-       
+
         <%-- header.jsp 추가(포함) --%>
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <section class="content">
-            <section class="content1">
-            	${loginMember}
-            </section>
+            <section class="content1"> ${loginMember} </section>
         
             <section class="content2"> 
                 <%--  로그인 여부에 따라 출력화면 변경 --%>
@@ -38,10 +36,17 @@
                     <c:when test="${empty loginMember}">
                         
                                                     <%-- JS와 연동하기 위해 name 사용 --%>
-                        <form action="/member/login" name="login-frm" method="POST">
+                        <form action="/member/login" name="login-frm" method="POST" onsubmit="return loginValidate()">
                                     <%-- 절대 경로 --%>              <%-- 비번 노출 방지 --%>
+
+                        <%-- 
+                            form태그의 submit이벤트를 취소시키는 방법 1
+                            
+                            인라인 이벤트 모델의 결과로 false를 리턴하면 제출 이벤트 취소
+                            - 함수를 호출해서 아이디 또는 비밀번호가 입력이 안될 경우 false를 반환
+                        --%>
                 
-                           <%--  fieldset 아이디, 비밀번호, 로그인 버튼 --%>
+                            <%--  fieldset 아이디, 비밀번호, 로그인 버튼 --%>
                             <fieldset id="id-pw-area">
                                 <section>
                                     <input type="text" name="memberEmail" autocomplete="off" placeholder="이메일" value="${cookie.saveId.value}">
@@ -63,9 +68,9 @@
                             </c:if>
                             
                             <%-- 로그인하기 
-                                 label태그 내부에 input태그를 작성하면 자동 연결--%>
+                                label태그 내부에 input태그를 작성하면 자동 연결--%>
                             <label>
-                                <input type="checkbox" name="saveId" ${temp}> 아이디 저장
+                                <input type="checkbox" id="saveId" name="saveId" ${temp}> 아이디 저장
                             </label>
                 
                             <!-- 회원가입/ ID/PW찾기 -->
@@ -100,6 +105,8 @@
     </main>  
 
     <%-- footer.jsp 포함 --%>
-   <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
+    <script src="/resources/js/main.js"></script>
 </body>
 </html>
