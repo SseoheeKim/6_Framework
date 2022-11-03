@@ -18,7 +18,7 @@
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <section class="signUp-content">
-           
+
             <form action="/member/signUp" method="POST" name="signUp-frm" id="signUp-frm">
                 
                 <!-- 이메일 입력 영역 -->
@@ -65,7 +65,7 @@
                     <input type="password" name="memberPwConfirm" id="memberPwConfirm" placeholder="비밀번호 확인"
                         maxlength="20" required>
                 </div>
-               <span class="signUp-message error"> 비밀번호가 일치하지 않습니다.</span>
+                <span class="signUp-message error"> 비밀번호가 일치하지 않습니다.</span>
                 
 
 

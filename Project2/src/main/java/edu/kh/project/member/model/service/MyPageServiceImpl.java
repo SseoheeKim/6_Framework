@@ -41,7 +41,7 @@ public class MyPageServiceImpl implements MyPageService {
 		// 2. maches를 이용해 입력Pw / 암호화Pw를 비교 
 		//	  결과가 true인 경우, 새 비밀번호로 수정(UPDATE)하는 DAO코드 호출
 		
-		if(bcrypt.matches((String)paramMap.get("curruntPw"), encPw)) {
+		if(bcrypt.matches((String)paramMap.get("currentPw"), encPw)) {
 			
 			// 현재 비밀번호와 암호화 된 비밀번호가 일치하면 새 비밀번호를 암호화
 			String newPw = bcrypt.encode( (String)paramMap.get("newPw") );

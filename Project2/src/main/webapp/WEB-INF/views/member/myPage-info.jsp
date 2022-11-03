@@ -75,6 +75,7 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp" /> 
     
+    <%-- 다음 주소 api추가 --%>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
         function sample6_execDaumPostcode() {
@@ -93,7 +94,7 @@
                         addr = data.jibunAddress;
                     }
 
-                   
+
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
                     document.getElementById('sample6_postcode').value = data.zonecode;
                     document.getElementById("sample6_address").value = addr;
@@ -103,6 +104,8 @@
             }).open();
         }
     </script>   
+
+    <script src="/resource/js/member/myPage.js"></script>
     
 </body>
 </html>

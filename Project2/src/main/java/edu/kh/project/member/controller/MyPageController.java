@@ -105,7 +105,7 @@ public class MyPageController {
 	// 비밀번호 변경
 	@PostMapping("/changePw")
 	public String changePw(@SessionAttribute("loginMember") Member loginMember,
-							  /* 파라미터 각각 전달 받기 String curruntPw, String newPw */
+							  /* 파라미터 각각 전달 받기 String currentPw, String newPw */
 						@RequestParam Map<String, Object> paramMap,
 						RedirectAttributes ra ) {
 		
