@@ -262,6 +262,4 @@ memberTel.addEventListener("input", function(){
         checkObj.memberTel = false;
     }
 
-
-
 });
