@@ -28,12 +28,11 @@
 
                 <div class="signUp-input-area">
                     <input type="text" name="memberEmail" id="memberEmail" placeholder="아이디(이메일)"
-                        maxlength="20" autocomplete="off" required 
+                        maxlength="30" autocomplete="off" required 
                         value="${tempMember.memberEmail}">
-                    
                     <button type="button">인증번호 받기</button> 
                 </div>
-                <span class="signUp-message">메일을 받을 수 있는 이메일을 입력해주세요.</span>
+                <span class="signUp-message" id="emailMessage">메일을 받을 수 있는 이메일을 입력해주세요.</span>
 
                 
                 <!-- 인증번호 입력 영역 -->
@@ -65,7 +64,7 @@
                     <input type="password" name="memberPwConfirm" id="memberPwConfirm" placeholder="비밀번호 확인"
                         maxlength="20" required>
                 </div>
-                <span class="signUp-message error"> 비밀번호가 일치하지 않습니다.</span>
+                <span class="signUp-message" id="pwMessage">영어, 숫자, 특수문자(!,@,#,-,_)를 포함한 6~20글자 사이로 입력해주세요.</span>
                 
 
 
@@ -79,7 +78,7 @@
                         placeholder="닉네임" maxlength="10" required value="${tempMember.memberNickname}">
                 </div>
 
-                <span class="signUp-message confirm"> 사용 가능한 닉네임입니다. </span>
+                <span class="signUp-message" id="nickMessage"> 닉네임은 한글, 영어, 숫자로만 2~10글자로 작성하세요. </span>
 
 
 
@@ -93,7 +92,7 @@
                         placeholder="(-없이 숫자만 입력)" maxlength="11" required value="${tempMember.memberTel}">
                 </div>
 
-                <span class="signUp-message error"> 전화번호 형식이 올바르지 않습니다. </span>
+                <span class="signUp-message" id="telMessage"> 전화번호를 입력해주세요(-제외)</span>
 
 
                 <%-- 주소 문자열을 배열로 쪼개기 --%>
@@ -146,7 +145,6 @@
                         addr = data.jibunAddress;
                     }
 
-                   
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
                     document.getElementById('sample6_postcode').value = data.zonecode;
                     document.getElementById("sample6_address").value = addr;
@@ -155,6 +153,8 @@
                 }
             }).open();
         }
-    </script>   
+    </script>  
+
+    <script src="/resources/js/member/signUp.js"></script>
 </body>
 </html>
