@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +34,7 @@
             </section>
 
             <button class="login-btn">Login</button>
-        <%-- 쿠키에 saveId가 있는 경우에 변수 생성 --%>
+        <!-- 쿠키에 saveId가 있는 경우에 변수 생성 -->
         <c:if test="${!empty cookie.saveId.value}">
             <c:set var="temp" value="checked" />
         </c:if>
@@ -57,7 +58,7 @@
         <script> 
             alert("${message}");
         </script> 
-        <%-- message 1회 출력 후 삭제 --%>
+        <!-- message 1회 출력 후 삭제 -->
         <c:remove var="message" />
     </c:if>
 </body>
