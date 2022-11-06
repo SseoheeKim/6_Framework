@@ -23,10 +23,10 @@ if(changePwForm != null) { //changePwForm 요소가 존재할 때(현재 myPage-
         if( currentPw.value.trim().length == 0 ) {
             //  currentPw.value.trim() == ""  -> 문자비교로도 가능하지만 숫자비교가 더 빠르당
 
-            // alert("현재 비밀번호가 작성되지 않았습니다. 현제 비밀번호를 입력해주세요.");
+            // alert("현재 비밀번호가 작성되지 않았습니다. 현재 비밀번호를 입력해주세요.");
             // currentPw.focus();
             // currentPw.value="";
-            alertAndFocus(currentPw,"현재 비밀번호가 작성되지 않았습니다. 현제 비밀번호를 입력해주세요.");
+            alertAndFocus(currentPw,"현재 비밀번호가 작성되지 않았습니다. 현재 비밀번호를 입력해주세요.");
             // return false; --> 인라인 이벤트 모델 onsubmit ="return 함수명()"; 에서 사용
 
 

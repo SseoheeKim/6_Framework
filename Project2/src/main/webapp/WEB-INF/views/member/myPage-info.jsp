@@ -31,8 +31,8 @@
                 <h1 class="myPage-title">내 정보</h1>
                 <span class="myPage-subject">원하는 회원 정보를 수정할 수 있습니다.</span>
 
-                <%-- 절대경로 : "/member/myPage/info" --%>
-                <%-- 상대경로 : 현재 페이지를 기준으로 "info" --%>
+                <!-- 절대경로 : "/member/myPage/info" -->
+                <!-- 상대경로 : 현재 페이지를 기준으로 "info" -->
                 <form action="info" method="post" name="myPage-frm">
                     <div class="myPage-row">
                         <label>닉네임</label>
@@ -48,7 +48,7 @@
                         <span>주소</span>
                     </div>
 
-                    <%-- split(문자열, 구분자) : 문자열을 구분자로 쪼개서 배열로 반환 --%>
+                    <!-- split(문자열, 구분자) : 문자열을 구분자로 쪼개서 배열로 반환 -->
                     <c:set var="addr" value="${fn:split(loginMember.memberAddress, ',,')}" ></c:set>
 
                     <div class="myPage-row info-address">

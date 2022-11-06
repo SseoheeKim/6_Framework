@@ -34,17 +34,19 @@
             </section>
 
             <button class="login-btn">Login</button>
-        <!-- 쿠키에 saveId가 있는 경우에 변수 생성 -->
-        <c:if test="${!empty cookie.saveId.value}">
-            <c:set var="temp" value="checked" />
-        </c:if>
 
-        <div class="saveId-area">
-            <input type="checkbox" name="saveId" id="saveId" ${temp}>
-            <label for="saveId">
-                <i class="fas fa-check"></i> 아이디 저장
-            </label>
-        </div>
+            <!-- 쿠키에 saveId가 있는 경우에 변수 생성 -->
+            <c:if test="${!empty cookie.saveId.value}">
+                <c:set var="temp" value="checked" />
+            </c:if>
+
+            <div class="saveId-area">
+                <input type="checkbox" name="saveId" id="saveId" ${temp}>
+                <label for="saveId">
+                    <i class="fas fa-check"></i> 아이디 저장
+                </label>
+            </div>
+        </form>
 
         <p class="text-area">
             <a href="/member/signUp">회원가입</a>
