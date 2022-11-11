@@ -253,14 +253,36 @@ memberNickname.addEventListener("input", function(){
                         /* a-zA-Z0-9 */
 
     
-    if(regEx.test(memberNickname.value)){ // 닉네임이 유효한 경우
-
-        // ************ 닉네임 중복 검사 코드 추가 예정 ************
-
-        nickMessage.innerText ="유효한 닉네임입니다."
-        nickMessage.classList.add("confirm");
-        nickMessage.classList.remove("error");
-        checkObj.memberNickname = true;
+    if(regEx.test(memberNickname.value)){ // 닉네임이 정규표현식에서 유효한 경우
+        // ************ 닉네임 중복 검사 추가 ***********
+        const param =  { "memberNickname" : memberNickname.value };
+        $.ajax({
+            url :"/nickDupCheck",
+            data : param,
+            type : "get", // type 미작성 시 기본값은 GET => 대/소문자 상관없다
+            success : (result) => { // 매개변수는 서버 비동기 통신의 응답 데이터
+                // console.log(result);
+                if(result == 0) {
+                    nickMessage.innerText ="사용 가능한 닉네임입니다."
+                    nickMessage.classList.add("confirm");
+                    nickMessage.classList.remove("error");
+                    checkObj.memberNickname = true;  
+                } else {
+                    nickMessage.innerText ="이미 사용 중인 닉네임입니다."
+                    nickMessage.classList.add("error");
+                    nickMessage.classList.remove("confirm");
+                    checkObj.memberNickname = true;  
+                }
+            },
+            error: () => {
+                console.log("닉네임 중복 검사 실패"); 
+            },
+            complete : tempFn
+        });
+        // nickMessage.innerText ="유효한 닉네임입니다."
+        // nickMessage.classList.add("confirm");
+        // nickMessage.classList.remove("error");
+        // checkObj.memberNickname = true;
         
     } else { // 유효하지 않을 경우
         nickMessage.innerText ="유효하지 않은 닉네임입니다."
@@ -270,6 +292,10 @@ memberNickname.addEventListener("input", function(){
 
     }
 });
+
+function tempFn() {
+    console.log("닉네임 검사 complete");
+}
 
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////

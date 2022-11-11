@@ -468,3 +468,16 @@ label[for="header-menu-toggle"]:hover { text-decoration: underline; }
 }
 
 
+/* 10초마다 모든 회원정보를 조회 */
+#content1-2 {
+    width: 300px;
+    margin: 50px auto;
+}
+
+.secession {
+    background-color: #ddd;
+}
+
+.secession > td:first-of-type {
+    text-decoration: line-through;
+}

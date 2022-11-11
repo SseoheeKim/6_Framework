@@ -28,7 +28,43 @@
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <section class="content">
-            <section class="content1"> ${loginMember} </section>
+            <section class="content1"> 
+                <div>
+                    <h3>이메일로 회원 정보 조회(AJAX)</h3>
+                    이메일 :  <input type="text" id="inputEmail">
+                    <button id="selectEmail">조회</button>
+                    <%-- 일치하는 화면이 있을 때, 없을 때는 요소 추가하기로 js파일에 추가 --%>
+                </div>
+
+                <div id="content1-2">
+                    <h3>10초마다 모든 회원 정보를 조회</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>회원번호</th>
+                                <th>이메일</th>
+                                <th>탈퇴여부</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody id="tbody">
+                            <%-- <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr> --%>
+                        </tbody>
+                        
+                        <tfoot>
+                            <tr>
+                                <th>회원수</th>
+                                <th colspan="2" id="memberCount"></th> 
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
         
             <section class="content2"> 
                 <%--  로그인 여부에 따라 출력화면 변경 --%>
@@ -107,6 +143,8 @@
     <%-- footer.jsp 포함 --%>
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
+    <%-- main.js 위에 cdn방식의 jQuery 추가 --%>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/resources/js/main.js"></script>
 </body>
 </html>
