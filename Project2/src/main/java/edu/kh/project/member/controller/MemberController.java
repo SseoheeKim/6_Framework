@@ -65,22 +65,17 @@ public class MemberController {
 		String inputEmail = req.getParameter("inputEmail");
 		String inputPw = req.getParameter("inputPw");
 		
-		System.out.println(inputEmail);
-		System.out.println(inputPw);
-		
 		// * forward 방법 :  prefix/sufix를 제외한 나머지 jsp경로
-		
 		// * redirect 방법  : "redirect:요청주소";
-		
 		
 		return "redirect:/";
 	}
 	
 	
 	
-	// 2. requestParam 어노테이션 사용
-	// - 메서드 매개변수에 전달받은 파라미터를 주입하는 어노테이션
-	// ** 속성도 사용 가능!!
+	// 2. requestParam 어노테이션 사용(value / required / defaultValue속성 이용)
+	// 		=> 메서드 매개변수에 전달받은 파라미터를 주입하는 어노테이션
+	
 	// value : 전달 받은 input 태그의 name 속성값
    
 	// required : 입력된 name 속성값 파라미터 필수 여부 지정(기본값 true)
@@ -90,12 +85,7 @@ public class MemberController {
 
 	// defaultValue : 파라미터 중 일치하는 name 속성 값이 없을 경우에 대입할 값 지정.
 	// -> required = false인 경우 사용 ** 입력되는 값이 없어도 placeholder기능 존재!!!!!!
-	
-	
-	// **** RequestParam 생략 가능 ****
-	// 단, 필수 조건은 매개변수 이름 == input name 속성값
-
-	//@RequestMapping(value="/member/login", method=RequestMethod.POST)
+	// @RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String login(@RequestParam("inputEmail") String email,
 						@RequestParam(value="inputPw2", required=false, defaultValue="1234") String Pw,
 						String inputPw){
@@ -107,7 +97,8 @@ public class MemberController {
 	}
 	
 	
-	// RequestParam 생략을 이용해 짧게 코드 작성 가능
+	// **** RequestParam 생략 가능 ****
+	// 단, 필수 조건은 매개변수 이름 == input name 속성값
 	//@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String login(String inputEmail, String inputPw) {
 		
@@ -121,7 +112,7 @@ public class MemberController {
 
 	/*  3. @ModelAttribute (ModelAttribute 어노테이션) 이용
 		[작성방법]
-	  	@ModelAttribute VO타입 매개면수명
+	  	@ModelAttribute VO타입 매개변수명
 	  	-> 파라미터의 name 속성값이 지정된 VO의 필드명과 같다면 
 	  	해당 VO객체의 필드에 파라미터를 세팅
 	  	
@@ -131,13 +122,18 @@ public class MemberController {
 	  	3. name 속성값과 필드명이 동일해야함! 
 	 */
 	
+	//@PostMapping("/member/login")
+	public String login(/*@ModelAttribute*/ Member inputMember) {
+		System.out.println(inputMember);
+		return "redirect:/"; 
+	}
+
 	
-	// @ModelAttribute은 생략이 가능
-	// public String login(Member inputEmail) <- 이렇게도 가능
 	
 	
+	// == @RequestMapping(value="/member/login", method=RequestMethod.POST)
 	@PostMapping("/member/login") // Post방식의 /member/login요청을 연결
-	public String login(@ModelAttribute Member inputEmail, 
+	public String login(@ModelAttribute Member inputMember, 
 						Model model, 
 						RedirectAttributes ra,
 						@RequestParam(value="saveId", required=false) String saveId, //체크박스 값 가져오기
@@ -162,7 +158,7 @@ public class MemberController {
 		
 		// String 프로젝트 
 		// 서비스 호출 후 결과 반환 받기
-		Member loginMember = service.login(inputEmail);
+		Member loginMember = service.login(inputMember);
 		
 		String path = null;  // 리다이렉트 경로를 저장할 변수
 		

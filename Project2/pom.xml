@@ -4,7 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.kh</groupId>
 	<artifactId>project</artifactId>
-	<name>Project2</name>
+	<name>Project2</name>	
+	<!-- 배포 관련 설정 war (web archive) == webapp폴더만 압축해서 내보내겠다 -->
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	
