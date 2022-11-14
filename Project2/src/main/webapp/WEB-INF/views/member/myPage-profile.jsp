@@ -59,9 +59,16 @@
                 -->
 
                 <!-- /member/myPage/updateProfile 를 상대경로로 요청 -->
-                <form action="updateProfile" method="post" name="myPage-frm" enctype="multipart/form-data">
+                <form action="updateProfile" method="post" name="myPage-frm" enctype="multipart/form-data" onsubmit="return profileValidate()">
                     <div class="profile-image-area">
                         <img id="profile-image" src="/resources/images/user.png" alt="profile-image">
+                        <c:if test="${empty loginMember.profileImage}">    
+                            <img id="profile-image" src="/resources/images/user.png">
+                        </c:if> 
+
+                        <c:if test="${not empty loginMember.profileImage}">    
+                            <img id="profile-image" src="${loginMember.profileImage}">
+                        </c:if> 
                     </div>
                     <span id="delete-image">&times;</span>
 
@@ -74,12 +81,12 @@
 
                     <div class="myPage-row">
                         <label>이메일</label>
-                        <span>user04@kh.or.kr</span>
+                        <span>${loginMember.memberEmail}</span>
                     </div>
 
                     <div class="myPage-row">
                         <label>가입일</label>
-                        <span>2022년 10월 27일 10시 39분 12초</span>
+                        <span>${loginMember.enrollDate}</span>
                     </div>
                     
                 </form>

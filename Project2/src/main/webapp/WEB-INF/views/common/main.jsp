@@ -18,13 +18,13 @@
 <body>
 
     <main>
-        <%-- 
+        <!-- 
             jsp action tag : include 
             - 해당 위치에 page 속성으로 지정된 jsp파일의 내용이 포함
             - jsp 파일의 경로는 /webapp 폴더 기준으로 작성
-        --%>
+        -->
 
-        <%-- header.jsp 추가(포함) --%>
+        <!-- header.jsp 추가(포함) -->
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <section class="content">
@@ -33,7 +33,7 @@
                     <h3>이메일로 회원 정보 조회(AJAX)</h3>
                     이메일 :  <input type="text" id="inputEmail">
                     <button id="selectEmail">조회</button>
-                    <%-- 일치하는 화면이 있을 때, 없을 때는 요소 추가하기로 js파일에 추가 --%>
+                    <!-- 일치하는 화면이 있을 때, 없을 때는 요소 추가하기로 js파일에 추가 -->
                 </div>
 
                 <div id="content1-2">
@@ -48,11 +48,11 @@
                         </thead>
                         
                         <tbody id="tbody">
-                            <%-- <tr>
+                            <!-- <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr> --%>
+                            </tr> -->
                         </tbody>
                         
                         <tfoot>
@@ -67,22 +67,22 @@
 
         
             <section class="content2"> 
-                <%--  로그인 여부에 따라 출력화면 변경 --%>
+                <!--  로그인 여부에 따라 출력화면 변경 -->
                 <c:choose>
                     <c:when test="${empty loginMember}">
                         
-                                                    <%-- JS와 연동하기 위해 name 사용 --%>
+                                                    <!-- JS와 연동하기 위해 name 사용 -->
                         <form action="/member/login" name="login-frm" method="POST" onsubmit="return loginValidate()">
-                                    <%-- 절대 경로 --%>              <%-- 비번 노출 방지 --%>
+                                    <!-- 절대 경로 -->              <!-- 비번 노출 방지 -->
 
-                        <%-- 
+                        <!-- 
                             form태그의 submit이벤트를 취소시키는 방법 1
                             
                             인라인 이벤트 모델의 결과로 false를 리턴하면 제출 이벤트 취소
                             - 함수를 호출해서 아이디 또는 비밀번호가 입력이 안될 경우 false를 반환
-                        --%>
+                        -->
                 
-                            <%--  fieldset 아이디, 비밀번호, 로그인 버튼 --%>
+                            <!--  fieldset 아이디, 비밀번호, 로그인 버튼 -->
                             <fieldset id="id-pw-area">
                                 <section>
                                     <input type="text" name="memberEmail" autocomplete="off" placeholder="이메일" value="${cookie.saveId.value}">
@@ -95,16 +95,16 @@
                                 </section>
                             </fieldset>
 
-                            <%-- cookie에 saveId가 있는 경우 --%>
+                            <!-- cookie에 saveId가 있는 경우 -->
                             <c:if test="${!empty cookie.saveId.value}">
-                                <%-- temp 변수 선언 --%>
+                                <!-- temp 변수 선언 -->
                                 <c:set var="temp" value="checked" />
-                                <%-- page scope로 page어디서든 사용 가능
-                                    if문에서 벗어나도 사용 가능 --%>
+                                <!-- page scope로 page어디서든 사용 가능
+                                    if문에서 벗어나도 사용 가능 -->
                             </c:if>
                             
-                            <%-- 로그인하기 
-                                label태그 내부에 input태그를 작성하면 자동 연결--%>
+                            <!-- 로그인하기 
+                                label태그 내부에 input태그를 작성하면 자동 연결-->
                             <label>
                                 <input type="checkbox" id="saveId" name="saveId" ${temp}> 아이디 저장
                             </label>
@@ -118,14 +118,21 @@
                         </form>
                     </c:when>
 
-                    <%-- 로그인 인 경우 --%>
+                    <!-- 로그인 인 경우 -->
                     <c:otherwise>
                         <article class="login-area">
-                            <a href="/member/myPage/profile"> <%-- 프로필 이미지 수정이 가능한 창으로 forward 요청 위임--%>
+                            <a href="/member/myPage/profile"> <!-- 프로필 이미지 수정이 가능한 창으로 forward 요청 위임-->
                                 <img id="member-profile" src="/resources/images/user.png" alt="member-profile">
+                                <c:if test="${empty loginMember.profileImage}">    
+                                    <img id="member-profile" src="/resources/images/user.png">
+                                </c:if> 
+
+                                <c:if test="${not empty loginMember.profileImage}">    
+                                    <img id="member-profile" src="${loginMember.profileImage}">
+                                </c:if> 
                             </a>
 
-                            <%-- 회원정보와 로그아웃 --%>
+                            <!-- 회원정보와 로그아웃 -->
                             <div class="my-info">
                                 <div>
                                     <a href="/member/myPage/info" id="nickname">${loginMember.memberNickname}</a>
@@ -140,10 +147,10 @@
         </section>
     </main>  
 
-    <%-- footer.jsp 포함 --%>
+    <!-- footer.jsp 포함 -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-    <%-- main.js 위에 cdn방식의 jQuery 추가 --%>
+    <!-- main.js 위에 cdn방식의 jQuery 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/resources/js/main.js"></script>
 </body>

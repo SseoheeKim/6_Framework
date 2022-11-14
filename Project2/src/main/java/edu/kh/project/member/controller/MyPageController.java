@@ -214,7 +214,7 @@ public class MyPageController {
 								// 파일은 string형식으로 받아올 수 없으니까 MultipartFile 타입으로 받아오는 것
 	public String updateProfile(@RequestParam(value="profileImage") MultipartFile profileImage, /*업로드 된 파일*/
 								@SessionAttribute("loginMember") Member loginMember, /* 로그인 회원 정보*/
-								RedirectAttributes rs, /* 메세지 전달용 */
+								RedirectAttributes ra, /* 메세지 전달용 */
 								HttpServletRequest req /* 저장할 서버 경로 - 별도 지정안할 경우 찾기 어려움 */
 								) throws Exception {
 		
@@ -234,9 +234,14 @@ public class MyPageController {
 		int result = service.updateProfile(webPath, filePath, profileImage, loginMember);
 		
 			
-		}
+		String message = null;
+		if(result > 0)	message = "프로필 이미지가 변경되었습니다.";
+		else			message = "프로필 이미지 변경 실패";
 		
-		return null;
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/member/myPage/profile";
+		
 	}
 
 }

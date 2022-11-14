@@ -86,7 +86,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 	
 	// 프로필 이미지 수정
-	@Transactional
+	@Transactional(rollbackFor = Exception.class) // 예외가 발생하면 롤백
 	@Override
 	public int updateProfile(String webPath, String filePath, MultipartFile profileImage, Member loginMember) throws Exception {
 		
@@ -127,6 +127,7 @@ public class MyPageServiceImpl implements MyPageService {
 		} else {
 			// 실패시 다시 이전 이미지를 세팅
 			loginMember.setProfileImage(temp);
+			throw new Exception("파일 업로드 실패"); // 예외 강제 발생
 		}
 		return result;
 	}
