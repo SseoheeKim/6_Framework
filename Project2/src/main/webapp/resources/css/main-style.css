@@ -127,6 +127,7 @@ nav{
         이 때 지정될 위치를 함께 지정*/
     
     background-color: white;
+    z-index: 100;
 }
 
 /* ul 스타일 지정 */

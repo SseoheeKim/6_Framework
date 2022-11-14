@@ -69,64 +69,74 @@
             </section>
 
         
-            <section class="content2"> 
-                <!--  로그인 여부에 따라 출력화면 변경 -->
-                <c:choose>
-                
-                		<!-- 로그인 x인 경우 -->
-                    <c:when test="${empty sessionScope.loginMember}">
-                        
-                                                    <!-- JS와 연동하기 위해 name 사용 -->
-                        <form action="/member/login" name="login-frm" method="POST" >
-                                    <!-- 절대 경로 -->             							 <!-- 비번 노출 방지 -->
+            <section class="content-2">
 
-                        <!-- 
-                            form태그의 submit이벤트를 취소시키는 방법 1
-                            
-                            인라인 이벤트 모델의 결과로 false를 리턴하면 제출 이벤트 취소
-                            - 함수를 호출해서 아이디 또는 비밀번호가 입력이 안될 경우 false를 반환
-                        -->
-                
-                            <!--  fieldset 아이디, 비밀번호, 로그인 버튼 -->
+                <%-- 로그인 여부에 따라 출력 화면 변경 --%>
+                <c:choose>
+                    
+                    <%-- 로그인 X인 경우 --%>
+                    <c:when test="${empty sessionScope.loginMember}">
+                                    <%-- 절대 경로 --%>
+                        <form action="/member/login" name="login-frm" method="POST"
+                            onsubmit="return loginValidate();">
+
+                        <%-- 
+                            form태그의 submit 이벤트를 취소시키는 방법1
+                            -> 인라인 이벤트 모델의 결과로 false를 리턴하면 
+                                제출 이벤트 취소된다.
+                        --%>
+
+        
+                            <!-- 아이디, 비밀번호, 로그인 버튼 -->
                             <fieldset id="id-pw-area">
                                 <section>
-                                    <input type="text" name="memberEmail" autocomplete="off" placeholder="이메일" value="${cookie.saveId.value}">
-      									                                                                                                          								<!-- 쿠키 중 saveId에 저장된 값 -->
-                                    <input type="password" name="memberPw" autocomplete="off" placeholder="비밀번호" >
+                                    <input type="text" name="memberEmail"
+                                    placeholder="이메일" autocomplete="off" value="${cookie.saveId.value}">   
+                                                                            <%-- 쿠키 중 saveId에 저장된 값 --%>                          
+                                    <!-- autocomplete="off" : 자동완성 사용 X -->
+                
+                                    <input type="password" name="memberPw" placeholder="비밀번호">
                                 </section>
                 
                                 <section>
-                                    <button type="submit">로그인</button>
+                                    <!-- type="submit"이 기본값 -->
+                                    <button>로그인</button>
                                 </section>
                             </fieldset>
-
-                            <!-- cookie에 saveId가 있는 경우 -->
+                
+                            <%-- 쿠키에 saveId가 있을 경우 --%>
                             <c:if test="${!empty cookie.saveId.value}">
-                                <!-- temp 변수 선언 -->
+                                <%-- temp 변수 선언 --%>
                                 <c:set var="temp" value="checked" />
-                                <!-- page scope로 page어디서든 사용 가능
-                                    if문에서 벗어나도 사용 가능 -->
+                                <%-- page scope == page 어디서든 사용 가능
+                                                == if문 나가도 쓸 수 있다 --%>
                             </c:if>
-                            
-                            <!-- 로그인하기 
-                                label태그 내부에 input태그를 작성하면 자동 연결-->
+
+
+
+                            <!-- label 태그 내부에 input태그를 작성하면 자동 연결됨 -->
                             <label>
-                                <input type="checkbox" id="saveId" name="saveId" ${temp}> 아이디 저장
+                                <input type="checkbox" id="saveId" name="saveId" ${temp}> 아이디 저장                  
                             </label>
                 
-                            <!-- 회원가입/ ID/PW찾기 -->
+                            <!-- 회원가입 / ID/PW 찾기 -->
                             <article id="signUp-find-area">
                                 <a href="/member/signUp">회원가입</a>
                                 <span>|</span>
                                 <a href="#">ID/PW찾기</a>
                             </article>
                         </form>
+
                     </c:when>
 
-                    <!-- 로그인 인 경우 -->
+
+                    <%-- 로그인 O인 경우 --%>
                     <c:otherwise>
+
                         <article class="login-area">
-                            <a href="/member/myPage/profile"> <!-- 프로필 이미지 수정이 가능한 창으로 forward 요청 위임-->
+
+                            <!-- 회원 프로필 이미지-->
+                            <a href="/member/myPage/profile">
                                 <c:if test="${empty loginMember.profileImage}">    
                                     <img id="member-profile" src="/resources/images/user.png">
                                 </c:if> 
@@ -134,23 +144,32 @@
                                 <c:if test="${not empty loginMember.profileImage}">    
                                     <img id="member-profile" src="${loginMember.profileImage}">
                                 </c:if> 
-                                
                             </a>
 
-                            <!-- 회원정보와 로그아웃 -->
+                            <!-- 회원 정보 + 로그아웃 버튼 -->
                             <div class="my-info">
+
                                 <div>
                                     <a href="/member/myPage/info" id="nickname">${loginMember.memberNickname}</a>
+                                
                                     <a href="/member/logout" id="logout-btn">로그아웃</a>
                                 </div>
+
                                 <p>${loginMember.memberEmail}</p>
+
                             </div>
-                        </article>       
+
+
+
+                        </article>
+
                     </c:otherwise>
                 </c:choose>
+
             </section>
         </section>
-    </main>  
+
+    </main>
 
     <!-- footer.jsp 포함 -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
