@@ -2,6 +2,8 @@ package edu.kh.project.member.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.project.member.model.service.MyPageService;
@@ -21,7 +24,7 @@ import edu.kh.project.member.model.vo.Member;
 // -> 요청 주소 중 앞의 공통된 부분을 작성하여 해당 경로의 요청을 모두 받아들인다고 알리는 어노테이션
 
 @SessionAttributes("loginMember") // 탈퇴 성공시 로그아웃에 사용하는 세션 무효화
-@RequestMapping("/member/myPage")
+@RequestMapping("/member/myPage") // /member/myPage 주소는 다 이곳에서 처리
 @Controller // bean 등록
 public class MyPageController {
 
@@ -184,7 +187,56 @@ public class MyPageController {
 		return "redirect:" + path;
 		
 	}
+
 	
 	
+	
+	
+	// 프로필 화면으로 이동
+	@GetMapping("/profile")
+	public String profile() {
+		return "member/myPage-profile";
+	}
+	
+	
+	// MultipartFile
+	// - bean에서 생성 및 관리(root-context.xml)되는 MultipartResolver에 의해서 반환된
+	// 	 input type="file"의 값을 저장한 객체
+	
+	// 제공메서드
+	// 1) getOriginalFilename() : 파일원본명
+	// 2) getSize() : 파일 크기
+	// 3) transferTo() : 메모리에 임시 저장된 파일을 지정된 경로에 저장
+	
+	
+	// 프로필 이미지 수정
+	@PostMapping("/updateProfile")
+								// 파일은 string형식으로 받아올 수 없으니까 MultipartFile 타입으로 받아오는 것
+	public String updateProfile(@RequestParam(value="profileImage") MultipartFile profileImage, /*업로드 된 파일*/
+								@SessionAttribute("loginMember") Member loginMember, /* 로그인 회원 정보*/
+								RedirectAttributes rs, /* 메세지 전달용 */
+								HttpServletRequest req /* 저장할 서버 경로 - 별도 지정안할 경우 찾기 어려움 */
+								) throws Exception {
+		
+		// ** 업로드 된 이미지를 프로젝트 폴더 내부에 저장하기 **
+		// 1) Servers > Server Options > Serve modules without publishing
+		// 2) 파일을 저장할 폴더 생성 (memberProfileImage)
+		// 3) HttpServletRequest를 이용해서 저장 폴더의 절대 경로를 얻어오기
+		// 4) MutipartFile.transferTo()를 이용해서 지정된 경로에 파일 저장
+		
+		// 인터넷 주소로 접근할 수 있는 경로
+		String webPath ="/resources/images/memberProfile/";
+		
+		// 실제 파일이 저장된 컴퓨터내의 절대 경로
+		String filePath = req.getSession().getServletContext().getRealPath(webPath);
+		// req.getSession().getServletContext() == application scope 객체
+		
+		int result = service.updateProfile(webPath, filePath, profileImage, loginMember);
+		
+			
+		}
+		
+		return null;
+	}
 
 }

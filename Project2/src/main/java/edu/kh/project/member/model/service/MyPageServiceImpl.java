@@ -1,12 +1,15 @@
 package edu.kh.project.member.model.service;
 
+import java.io.File;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.project.common.Util;
 import edu.kh.project.member.model.dao.MyPageDAO;
 import edu.kh.project.member.model.vo.Member;
 
@@ -78,6 +81,54 @@ public class MyPageServiceImpl implements MyPageService {
 		} 
 		
 		return 0; // 비밀번호 불일치시 0을 반환
+	}
+
+
+	
+	// 프로필 이미지 수정
+	@Transactional
+	@Override
+	public int updateProfile(String webPath, String filePath, MultipartFile profileImage, Member loginMember) throws Exception {
+		
+		// 프로필 수정 실패를 대비해 이전 이미지 경로를 저장
+		String temp = loginMember.getProfileImage();
+		
+		
+		// 중복 파일명 업로드를 대비하기 위해서 파일명 변경
+		String rename = null;
+	
+		if(profileImage.getSize() == 0) { // 업로드 된 파일이 없는 경우
+			loginMember.setProfileImage(null);
+			
+		} else {
+			
+			// 원본파일명을 이용해서 새로운 파일명 생성
+			rename = Util.fileRename(profileImage.getOriginalFilename());
+			
+			// 로그인된 회원의 프로필 이미지명 수정
+			loginMember.setProfileImage(webPath + rename);
+			// /resources/images/memberProfile/rename
+			
+		}
+		
+			
+		int result = dao.updateProfile(loginMember);
+			
+		if(result > 0) { // 프로필 수정이 성공(DB 수정 성공 시 -> 실제로 서버에 파일 저장)
+				
+			if(rename != null) {
+				// 변경된 이미지가 존재 == 새로운 파일 업로드 
+					
+			profileImage.transferTo(new File(filePath + rename));
+			// 메모리에 임시 저장된 파일을 지정된 경로에 파일 형태로 변환 == 업로드
+					
+			}
+				
+		} else {
+			// 실패시 다시 이전 이미지를 세팅
+			loginMember.setProfileImage(temp);
+		}
+		return result;
 	}
 	
 }

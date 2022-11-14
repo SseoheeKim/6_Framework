@@ -121,7 +121,7 @@
                     <%-- 로그인 인 경우 --%>
                     <c:otherwise>
                         <article class="login-area">
-                            <a href="#">
+                            <a href="/member/myPage/profile"> <%-- 프로필 이미지 수정이 가능한 창으로 forward 요청 위임--%>
                                 <img id="member-profile" src="/resources/images/user.png" alt="member-profile">
                             </a>
 
