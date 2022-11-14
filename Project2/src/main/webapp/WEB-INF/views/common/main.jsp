@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%-- 문자열 관련 메서드를 제공하는 JSTL -> EL형식을 사용 ${fn: } --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,11 +72,13 @@
             <section class="content2"> 
                 <!--  로그인 여부에 따라 출력화면 변경 -->
                 <c:choose>
-                    <c:when test="${empty loginMember}">
+                
+                		<!-- 로그인 x인 경우 -->
+                    <c:when test="${empty sessionScope.loginMember}">
                         
                                                     <!-- JS와 연동하기 위해 name 사용 -->
-                        <form action="/member/login" name="login-frm" method="POST" onsubmit="return loginValidate()">
-                                    <!-- 절대 경로 -->              <!-- 비번 노출 방지 -->
+                        <form action="/member/login" name="login-frm" method="POST" >
+                                    <!-- 절대 경로 -->             							 <!-- 비번 노출 방지 -->
 
                         <!-- 
                             form태그의 submit이벤트를 취소시키는 방법 1
@@ -86,7 +91,7 @@
                             <fieldset id="id-pw-area">
                                 <section>
                                     <input type="text" name="memberEmail" autocomplete="off" placeholder="이메일" value="${cookie.saveId.value}">
-                                                                                                                <%-- 쿠키 중 saveId에 저장된 값 --%>
+      									                                                                                                          								<!-- 쿠키 중 saveId에 저장된 값 -->
                                     <input type="password" name="memberPw" autocomplete="off" placeholder="비밀번호" >
                                 </section>
                 
@@ -122,7 +127,6 @@
                     <c:otherwise>
                         <article class="login-area">
                             <a href="/member/myPage/profile"> <!-- 프로필 이미지 수정이 가능한 창으로 forward 요청 위임-->
-                                <img id="member-profile" src="/resources/images/user.png" alt="member-profile">
                                 <c:if test="${empty loginMember.profileImage}">    
                                     <img id="member-profile" src="/resources/images/user.png">
                                 </c:if> 
@@ -130,6 +134,7 @@
                                 <c:if test="${not empty loginMember.profileImage}">    
                                     <img id="member-profile" src="${loginMember.profileImage}">
                                 </c:if> 
+                                
                             </a>
 
                             <!-- 회원정보와 로그아웃 -->
@@ -153,5 +158,6 @@
     <!-- main.js 위에 cdn방식의 jQuery 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/resources/js/main.js"></script>
+
 </body>
 </html>

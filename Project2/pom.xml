@@ -121,7 +121,7 @@
 		</dependency>
 		
 		
-		<!-- 이메일 인증 -->
+    <!-- 이메일 인증 -->
     <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
     <dependency>
        <groupId>javax.mail</groupId>
@@ -135,6 +135,7 @@
        <artifactId>spring-context-support</artifactId>
        <version>${org.springframework-version}</version>
     </dependency>
+
 		
 		<!-- Spring -->
 		<dependency>

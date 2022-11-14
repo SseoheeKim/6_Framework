@@ -240,7 +240,8 @@ public class MyPageController {
 		
 		ra.addFlashAttribute("message", message);
 		
-		return "redirect:/member/myPage/profile";
+		return "redirect:profile"; // 재요청
+		// return "redirect:/member/myPage/profile";
 		
 	}
 

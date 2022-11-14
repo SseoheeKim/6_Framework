@@ -61,7 +61,7 @@
                 <!-- /member/myPage/updateProfile 를 상대경로로 요청 -->
                 <form action="updateProfile" method="post" name="myPage-frm" enctype="multipart/form-data" onsubmit="return profileValidate()">
                     <div class="profile-image-area">
-                        <img id="profile-image" src="/resources/images/user.png" alt="profile-image">
+                        <!-- <img id="profile-image" src="/resources/images/user.png" alt="profile-image"> -->
                         <c:if test="${empty loginMember.profileImage}">    
                             <img id="profile-image" src="/resources/images/user.png">
                         </c:if> 
