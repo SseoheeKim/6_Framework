@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%-- 문자열 관련 메서드를 제공하는 JSTL -> EL형식을 사용 ${fn: } --%>
+<!-- 문자열 관련 메서드를 제공하는 JSTL -> EL형식을 사용 -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
@@ -21,13 +21,13 @@
 <body>
 
     <main>
-        <%-- 
+        <!-- 
             jsp action tag : include 
             - 해당 위치에 page 속성으로 지정된 jsp파일의 내용이 포함
             - jsp 파일의 경로는 /webapp 폴더 기준으로 작성
-        --%>
+        -->
 
-        <%-- header.jsp 추가(포함) --%>
+        <!-- header.jsp 추가(포함) -->
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
         <section class="content">
@@ -36,7 +36,7 @@
                     <h3>이메일로 회원 정보 조회(AJAX)</h3>
                     이메일 :  <input type="text" id="inputEmail">
                     <button id="selectEmail">조회</button>
-                    <%-- 일치하는 화면이 있을 때, 없을 때는 요소 추가하기로 js파일에 추가 --%>
+                    <!-- 일치하는 화면이 있을 때, 없을 때는 요소 추가하기로 js파일에 추가 -->
                 </div>
 
                 <div id="content1-2">
@@ -51,11 +51,11 @@
                         </thead>
                         
                         <tbody id="tbody">
-                            <%-- <tr>
+                            <!-- <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                            </tr> --%>
+                            </tr> -->
                         </tbody>
                         
                         <tfoot>
@@ -70,13 +70,13 @@
 
         
             <section class="content2"> 
-                <%--  로그인 여부에 따라 출력화면 변경 --%>
+                <!--  로그인 여부에 따라 출력화면 변경 -->
                 <c:choose>
                     <c:when test="${empty sessionScope.loginMember}">
                         
-                                                    <%-- JS와 연동하기 위해 name 사용 --%>
+                                                    <!-- JS와 연동하기 위해 name 사용 -->
                         <form action="/member/login" name="login-frm" method="POST" onsubmit="return loginValidate()">
-                                    <%-- 절대 경로 --%>              <%-- 비번 노출 방지 --%>
+                                    <!-- 절대 경로 -->              <!-- 비번 노출 방지 -->
 
                         <%-- 
                             form태그의 submit이벤트를 취소시키는 방법 1
@@ -100,14 +100,14 @@
 
                             <%-- cookie에 saveId가 있는 경우 --%>
                             <c:if test="${!empty cookie.saveId.value}">
-                                <%-- temp 변수 선언 --%>
+                                <!-- temp 변수 선언 -->
                                 <c:set var="temp" value="checked" />
-                                <%-- page scope로 page어디서든 사용 가능
-                                    if문에서 벗어나도 사용 가능 --%>
+                                <!-- page scope로 page어디서든 사용 가능
+                                    if문에서 벗어나도 사용 가능 -->
                             </c:if>
                             
-                            <%-- 로그인하기 
-                                label태그 내부에 input태그를 작성하면 자동 연결--%>
+                            <!-- 로그인하기 
+                                label태그 내부에 input태그를 작성하면 자동 연결-->
                             <label>
                                 <input type="checkbox" id="saveId" name="saveId" ${temp}> 아이디 저장
                             </label>
@@ -121,8 +121,8 @@
                         </form>
                     </c:when>
 
-                    <%-- 로그인 인 경우 --%>
                     <c:otherwise>
+                    <!-- 로그인 인 경우 -->
                         <article class="login-area">
                             
                             <!-- 회원 프로필 이미지-->
@@ -136,7 +136,7 @@
                                 </c:if> 
                             </a>
                             
-                            <%-- 회원정보와 로그아웃 --%>
+                            <!-- 회원정보와 로그아웃 -->
                             <div class="my-info">
                                 <div>
                                     <a href="/member/myPage/info" id="nickname">${loginMember.memberNickname}</a>
@@ -151,10 +151,10 @@
         </section>
     </main>  
 
-    <%-- footer.jsp 포함 --%>
+    <!-- footer.jsp 포함 -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-    <%-- main.js 위에 cdn방식의 jQuery 추가 --%>
+    <!-- main.js 위에 cdn방식의 jQuery 추가 -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/resources/js/main.js"></script>
 </body>

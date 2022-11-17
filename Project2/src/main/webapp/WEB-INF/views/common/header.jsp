@@ -24,7 +24,7 @@
 
         <section></section>
 
-        <%-- header 오른쪽 상단 메뉴 --%>
+        <!-- header 오른쪽 상단 메뉴 -->
         <div id="header-top-menu">
             <c:choose>
                 <c:when test="${empty sessionScope.loginMember}">
@@ -33,13 +33,14 @@
                     <a href="/member/login">로그인</a>
                 </c:when>
                 
-                <%-- 로그인인 경우 --%>
+                
                 <c:otherwise>
+                    <!-- 로그인인 경우 -->
                     <label for="header-menu-toggle">
                         ${loginMember.memberNickname}
                         <i class="fa-solid fa-caret-down"></i>
                     </label>
-                   
+                
                     <input type="checkbox" id="header-menu-toggle">
 
                     <div id="header-menu">
@@ -50,18 +51,12 @@
             </c:choose>
         </div>
     </header>
-
     <nav>
         <ul>
-            <c:forEach var="boardType" items="${boardTypeMap}">
-            <%--
-                    EL을 이용한 Map 데이터를 다루는 방법
-                    key   ==> ${var명.key}
-                    value ==> ${var명.value}
-                --%>
-                <li><a href="/board/${boardType.key}/list">${boardType.value}</a>
+            <c:forEach var="boardType" items="${boardTypeList}">
+                <li>
+                    <a href="/board/${boardType.BOARD_CODE}">${boardType.BOARD_NAME}</a>
                 </li>
-        
             </c:forEach>
         </ul>
     </nav>
