@@ -17,7 +17,7 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDAO dao;
 
-	
+	// 게시판 이름 목록 조회
 	@Override
 	public List<Map<String, Object>> selectBoardType() {
 		return dao.selectBoardType();
@@ -42,6 +42,13 @@ public class BoardServiceImpl implements BoardService {
 		map.put("boardList", boardList);
 		
 		return map;
+	}
+
+
+	// 게시글 상세조회 + 이미지 목록 조회 + 댓글 조회
+	@Override
+	public Board selectBoardDetail(int boardNo) {	
+		return dao.selectBoardDetail(boardNo);
 	}
 
 }

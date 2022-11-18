@@ -55,10 +55,10 @@ a:hover {
 .list-table tr > *:nth-of-type(1){ width: 10%; }
 
 .list-table tr > td:nth-of-type(2){
-     width: 50%; 
-     text-align: left;
-     padding-left: 50px;
-     text-decoration: none;
+    width: 50%; 
+    text-align: left;
+    padding-left: 50px;
+    text-decoration: none;
 }
 
 .list-table tr > *:nth-of-type(3){ width: 13%; }
@@ -184,7 +184,7 @@ a:hover {
     height: 100%;
 
     display: none;
-    z-index: 50;
+    z-index: 500;
 
     background-color: rgba(0, 0, 0, 0.4);
 }
@@ -193,14 +193,14 @@ a:hover {
     display: flex;
     animation-name: show;
     animation-duration: 0.5s;
-  }
+}
 
 .modal.hide{
     animation-name: hide;
     animation-duration: 0.5s;
 }
 
-  
+
 #modal-image {
     background-color: white;
     margin: auto;
@@ -211,8 +211,9 @@ a:hover {
 
 /* @keyframes : 
 애니메이션 중간중간의 특정 지점들을 거칠 수 있는 키프레임들을 설정함으로써 CSS 애니메이션 과정의 중간 절차를 제어할 수 있게 합니다.  */
+/* display 변경 시 transition이 적용되지 않으므로 animation 사용 */
 @keyframes show {
-    from {opacity: 0;}
+    from {opacity: 0;} /* opacity : 투명도 */
     to {opacity: 1;}
 }
 
@@ -221,7 +222,7 @@ a:hover {
     to {opacity: 0;}
 }
 
- 
+
 /* 닫기 버튼 꾸미기 */
 #modal-close {
     position: absolute;

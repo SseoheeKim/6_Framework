@@ -1,7 +1,11 @@
 package edu.kh.project.board.model.service;
 
 import java.util.List;
+
 import java.util.Map;
+
+import edu.kh.project.board.model.vo.Board;
+
 
 public interface BoardService{
 
@@ -17,6 +21,13 @@ public interface BoardService{
 	 * @return map
 	 */
 	Map<String, Object> selectBoardList(int boardCode, int cp);
+
+
+	/** 게시글 상세조회
+	 * @param boardNo
+	 * @return board
+	 */
+    Board selectBoardDetail(int boardNo);
 
 	
 }

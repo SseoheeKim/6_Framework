@@ -24,6 +24,7 @@ public class BoardDAO {
 		return sqlsession.selectList("boardMapper.selectBoardType") ;
 	}
 
+	
 	/**게시글 수 조회
 	 * @param boardCode
 	 * @return listCount
@@ -54,6 +55,15 @@ public class BoardDAO {
 									// namespace.id				, 파라미터, RowBounds 객체
 									//							파라미터가 없는 경우 null 대입
 
+	}
+
+
+	/** 게시글 상세조회 + 이미지 목록 조회 + 댓글 조회
+	 * @param boardNo
+	 * @return board
+	 */
+	public Board selectBoardDetail(int boardNo) {
+		return sqlsession.selectOne("boardMapper.selectBoardDetail", boardNo);
 	}
 	
 	
