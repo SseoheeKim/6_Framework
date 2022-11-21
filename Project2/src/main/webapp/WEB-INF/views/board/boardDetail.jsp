@@ -43,6 +43,22 @@
                     
                     <span>${board.memberNickname}</span>
 
+                    <!-- 좋아요 -->
+                    <span class="like-area">
+                        <!-- 빈 하트 : 내가 좋아요를 안눌렀거나, 로그인을 안한 경우 -->
+                        <c:if test = "${empty likeCheck}">
+                            <i class="fa-regular fa-heart" id="boardLike"></i>
+                        </c:if>
+
+                        <!-- 채워진 하트 : 내가 좋아요를 누른 경우-->
+                        <c:if test="${not empty likeCheck}">
+                            <i class="fa-solid fa-heart" id="boardLike"></i>
+                        </c:if>
+
+                        <!-- 하트 수 -->
+                        <span>${board.likeCount}</span>
+                    </span>
+
                 </div>
 
                 <div class="board-info">
@@ -119,9 +135,10 @@
             <div class="board-btn-area">
 
                 <!-- 로그인한 회원과 게시글 작성자 번호가 같은 경우-->
-                <button id="updateBtn">수정</button>
-                <button id="deleteBtn">삭제</button>
-
+                <c:if test="${loginMember.memberNo == board.memberNo}">
+                    <button id="updateBtn">수정</button>
+                    <button id="deleteBtn">삭제</button>
+                </c:if>
 
                 <button id="goToListBtn">목록으로</button>
             </div>
@@ -135,6 +152,31 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <%-- JSP 내장 객체에 세팅된 값을 JS에서 얻어가는 방법 1 --%>
+    <%-- 화면에 숨겨두고 JS를 이용해 값을 얻어간다 --%>
+    <input type="hidden" name="memberNo" value="${loginMember.memberNo}">
+
+
+    <%-- JSP 내장 객체에 세팅된 값을 JS에서 얻어가는 방법 2 --%>
+    <%-- script태그를 이용해서 전역 변수로 선언한다. --%>
+    <script>
+        const a = 10; /* 밑에 선언된 board.js에서 사용 가능 */
+        // 로그인 한 회원번호 얻어오기
+        
+        // JSP 해석 순서 : EL/JSTL > HTML > JS
+        // **** JS에 EL/JSTL 사용 시 양쪽에 "" 또는 '' 붙이는 것을 권장 ****
+        // WHY? EL/JSTL에서 값이 없으면 null을 반영하므로 값이 없어서 
+        // 공백이 되더라도 ""(빈 문자열)로 인식하여 에러 발생 방지
+        const memberNo = "${loginMember.memberNo}";
+        const boardNo = "${boardNo}";
+
+    </script>
+
+    <%-- jQuery 라이브러리(.js 파일) 추가 (CDN방식 : 콘텐츠 전송 네트워크)--%>
+    <%-- JS로만 이루어진 라이브러리 --%>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    
+    <script src="/resources/js/board/board.js"></script>
 
 </body>
 </html>
