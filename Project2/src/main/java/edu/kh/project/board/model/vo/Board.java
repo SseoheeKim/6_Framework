@@ -22,7 +22,7 @@ public class Board {
     private int memberNo;
     private String profileImage;
     private String thumbnail;
-    
+    private int boardCode; // 게시글 작성(insert) 용도 - resultMap에 추가할 필요 없어
     
     // 게시글 내의 이미지 목록
     private List<BoardImage> imageList;

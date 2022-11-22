@@ -19,4 +19,27 @@ public class Util {
 
 	      return date + str + ext;
 	   }
+	   
+	   
+	   
+	   
+	   // 크로스 사이트 스크립트(XSS) 방지 처리
+	   // : HTML에서 해석되는 문자를 단순 글자로 인식하도록 변경
+	   public static String XSSHandling(String content) {
+		   
+		   if(content != null) {
+			   content = content.replaceAll("&", "&aml;");
+			   content = content.replaceAll("<", "&lt;");
+			   content = content.replaceAll(">", "&gt;");
+			   content = content.replaceAll("\"", "&quot;");
+		   }
+		   return content;
+	   }
+	   
+	   
+	   // 개행 문자 처리(\r\n , \n, \r, \n\r) -> <br>로 변경
+	   public static String newLineHandling(String content) {
+			  
+		   return content.replaceAll("(\r\n|\n|\r|\n\r)", "<br>");
+	   }
 }
