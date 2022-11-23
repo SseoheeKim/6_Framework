@@ -230,7 +230,48 @@
 								#{img.boardNo} BOARD_NO
 								FROM DUAL
 			</foreach>
-				
  		</insert>
+ 		
+ 		
+ 		<!-- 게시글 수정 -->
+ 		<update id="boardUpdate">
+ 			UPDATE BOARD SET 
+			BOARD_TITLE = #{boardTitle},
+			BOARD_CONTENT = #{boardContent}
+			WHERE BOARD_NO = #{boardNo}
+ 		</update>
+ 		
+ 		
+ 		<!-- 마이바티스에서 파라미터 이용 방법
+ 				${key} ==  value
+ 					-> Statement
+ 					-> 주로 SQL의 일부
+ 				
+ 				#{key} == 'value' 
+ 					-> PreparedStatement (양쪽에 홑따옴표가 붙은 value값 호출)
+ 					-> 주로 삽입, 조건절에 사용하는 값
+ 		-->
+ 		
+ 		<!-- 수정 게시글 내 이미지 삭제-->
+ 		<delete id="boardImageDelete">
+ 			DELETE FROM BOARD_IMG ${condition}
+ 		</delete>
+ 		
+ 		
+ 		<!-- 수정 게시글 이미지 변경 (변경명,원본명)-->
+ 		<update id="boardImageUpdate">
+ 			UPDATE BOARD_IMG SET
+ 			IMG_RENAME = #{imageReName}, IMG_ORIGINAL = #{imageOriginal}
+ 			WHERE BOARD_NO = #{boardNo}
+ 			AND IMG_ORDER = #{imageOrder}
+ 		</update>
+ 		
+ 		<!-- 수정 게시글 이미지 삽입 -->
+ 		<insert id="boardImageInsert">
+ 			INSERT INTO BOARD_IMG
+ 			VALUES(SEQ_IMG_NO.NEXTVAL, #{imagePath}, 
+ 			#{imageReName}, #{imageOriginal}, #{imageOrder}, #{boardNo})
+ 		</insert>
+ 		
 	 	
 </mapper>

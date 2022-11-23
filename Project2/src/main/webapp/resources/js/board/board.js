@@ -93,3 +93,17 @@ deleteBtn.addEventListener("click", ()=>{
                         // /board/1/1998/delete
     }
 });
+
+
+
+
+// 게시글 수정
+const updateBtn = document.getElementById("updateBtn");
+updateBtn.addEventListener("click", ()=>{
+
+    // /board/{boardCode}/{boardNo}/update?cp=10 GET방식
+
+    location.href = location.pathname + "/update" + location.search;
+                // /board/{boardCode}/{boardNo}/update      // ?cp=10
+    
+});
