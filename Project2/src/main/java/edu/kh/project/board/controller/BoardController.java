@@ -1,6 +1,7 @@
 package edu.kh.project.board.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,7 +54,9 @@ public class BoardController {
 	@GetMapping("/board/{boardCode}")
 	public String selectBoardList(@PathVariable("boardCode") int boardCode,
 						Model model,
-						@RequestParam(value="cp", required=false, defaultValue="1") int cp
+						@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+						@RequestParam Map<String, Object> pm
+						
 						) {
 		
 		
@@ -60,8 +64,20 @@ public class BoardController {
 		// Model : 값 전달용 객체
 		// model.addAttribute("K", V) : request scope에 세팅(forward시 유지)
 		
-		Map<String, Object> map = service.selectBoardList(boardCode, cp);
-		model.addAttribute("map", map); // request scope 세팅
+		if(pm.get("key") == null ) { // 검색이 아닌 경우
+			Map<String, Object> map = service.selectBoardList(boardCode, cp);
+			model.addAttribute("map", map); // request scope 세팅
+			
+		} else { // 검색인 경우
+			
+			pm.put("boardCode", boardCode);
+			// pm 내에는 {boardCode, key, query, cp}
+			Map<String, Object> map = service.selectBoardList(pm, cp);
+			model.addAttribute("map", map);
+			
+		}
+		
+	
 		
 		return "board/boardList"; // forward		
 	}

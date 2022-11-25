@@ -51,3 +51,37 @@
         });
     }
 })();
+
+
+
+
+// 검색을 한 경우 검색 창에 검색기록 남겨두기
+(()=>{
+    const select = document.getElementById("search-key");
+    const input = document.getElementById("search-query");
+    const option = document.querySelectorAll("#search-key>option");
+
+    if(select != null ) { // 검색창이 존재할 때
+        const params = new URL(location.href).searchParams;
+        // 주소에서 쿼리스트링부분만 분리한 객체
+        
+        const key = params.get("key");
+        const query = params.get("query");
+
+        // input에 이전 검색어를 값으로 추가
+        input.value = query;
+
+        // select에서 이전 검색한 key의 값과 일치하는 옵션태그에 selected 속성 추가
+        for(let op of option) {
+
+            if(op.value == key) { // option의 value와 key가 일치할 때
+                // op.setAttribute("selected", true);
+                op.selected = true;
+            }   
+        }
+    }
+    
+
+
+
+})();
