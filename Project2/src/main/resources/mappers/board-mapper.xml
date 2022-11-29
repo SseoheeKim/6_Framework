@@ -345,6 +345,12 @@
 		ORDER BY BOARD_NO DESC
 		
 	 </select>
+	 
+	 
+	 <!-- 이미지 목록 조회 -->
+	 <select id="selectImageDbList" resultType="string"> <!-- 한 행만 조회 -->
+	  SELECT IMG_RENAME FROM BOARD_IMG
+	 </select>
  		
 	 	
 </mapper>

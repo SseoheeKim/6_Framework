@@ -200,5 +200,13 @@ public class BoardDAO {
 	}
 
 
+	/** 이미지 목록 조회
+	 * @return dbList
+	 */
+	public List<String> selectImageList() {
+		return sqlsession.selectList("boardMapper.selectImageDbList");
+	}
+
+
 	
 }
