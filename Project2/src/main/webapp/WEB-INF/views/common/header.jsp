@@ -58,5 +58,10 @@
                     <a href="/board/${boardType.BOARD_CODE}">${boardType.BOARD_NAME}</a>
                 </li>
             </c:forEach>
+
+            <li>
+                <a href="/chatting">채팅</a>
+            </li>
         </ul>
+
     </nav>
